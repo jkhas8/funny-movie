@@ -1,0 +1,31 @@
+<% if flash[:alert] %>
+  <div class="alert alert-danger" role="alert">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+<div class="row justify-content-md-center">
+  <div class="col-sm-8">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-subtitle text-muted">
+          Share a youtube movie
+        </h6>
+        <%= form_for @video do |f| %>
+          <div class="form-group row">
+            <div class="col-sm-3">
+              <%= f.label :link, "Youtube URL" %>
+            </div>
+            <div class="col-sm-9">
+              <%= f.text_field :link, class: "form-control", required: true %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-9 offset-sm-3">
+              <%= f.submit "Share", class: "btn btn-primary btn-block" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

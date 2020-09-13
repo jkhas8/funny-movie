@@ -1,4 +1,6 @@
 class Video < ApplicationRecord
+  belongs_to :user
+
   YOUTUBE_LINK_FORMAT = /\A.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/i
   validates :link, presence: true, format: YOUTUBE_LINK_FORMAT
   before_save :get_information
@@ -8,6 +10,7 @@ class Video < ApplicationRecord
     video = Yt::Video.new url: self.link
     self.uid = video.id
     self.title = video.title
+    self.description = video.description
     self.likes = video.like_count
     self.dislikes = video.dislike_count
     self.published_at = video.published_at

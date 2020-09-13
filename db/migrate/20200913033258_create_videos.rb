@@ -8,6 +8,7 @@ class CreateVideos < ActiveRecord::Migration[6.0]
       t.integer :dislikes
       t.string :uid
       t.string :description
+      t.references :user, index: true, foreign_key: true
 
       t.timestamps
     end

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root "sessions#new"
-  resources :sessions, only: [:new, :create, :destroy]
+  root "videos#index"
+  resources :sessions, only: [:create, :destroy]
+  resources :videos, only: [:index, :new, :create]
   get "logout", to: "sessions#destroy", as: "logout"
 end

@@ -27,7 +27,16 @@ RSpec.describe Video, type: :model do
     end
 
     context "when link is valid" do
-      before { subject.link = "https://www.youtube.com/watch?v=0gLlk4zmZAk" }
+      let (:user) {
+        create :user,
+        email: "email_test_#{Time.now.to_i}@test.test",
+        password: "12345678"
+      }
+
+      before do
+        subject.link = "https://www.youtube.com/watch?v=0gLlk4zmZAk"
+        subject.user = user
+      end
       it { is_expected.to be_valid }
     end
   end

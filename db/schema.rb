@@ -31,9 +31,12 @@ ActiveRecord::Schema.define(version: 2020_09_13_033258) do
     t.integer "dislikes"
     t.string "uid"
     t.string "description"
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["uid"], name: "index_videos_on_uid"
+    t.index ["user_id"], name: "index_videos_on_user_id"
   end
 
+  add_foreign_key "videos", "users"
 end

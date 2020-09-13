@@ -1,15 +1,6 @@
 require "rails_helper"
 
 RSpec.describe SessionsController, type: :controller do
-  describe "Test login form generation" do
-    context "when user access to login page" do
-      it "should render the login page" do
-        get :new
-        expect(response).to render_template(:new)
-      end
-    end
-  end
-
   describe "Test sending login request" do
     context "when user did not have account before" do
       it "should be create new account and login" do
@@ -35,7 +26,7 @@ RSpec.describe SessionsController, type: :controller do
 
       it "should render new tempalte" do
         post :create, params: { email: user.email, password: "wrong_password" }
-        expect(response).to render_template(:new)
+        expect(response).to redirect_to(root_path)
       end
     end
 
@@ -57,7 +48,14 @@ RSpec.describe SessionsController, type: :controller do
 
   describe "Test sending logout request" do
     context "when user logout sucessfully" do
+      let (:user) {
+        create :user,
+        email: "email_test_#{Time.now.to_i}@test.test",
+        password: "12345678"
+      }
+
       it "should logout and redirect to root_path" do
+        post :create, params: { email: user.email, password: "12345678" }
         delete :destroy
         expect(response).to redirect_to(root_path)
         expect(current_user).to eq nil
