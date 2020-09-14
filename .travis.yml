@@ -15,15 +15,13 @@ jobs:
         - docker build -t $IMAGE_NAME:test --build-arg SECRET_KEY_BASE=$SECRET_KEY_BASE --build-arg RAILS_ENV=test -f Dockerfile.test .
         - docker run --env RAILS_ENV=test $IMAGE_NAME:test bundle exec rspec spec
     - state: build
-      # if: branch = master
+      if: branch = master
       script:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        # - docker build -t $IMAGE_NAME:$TRAVIS_BRANCH --build-arg SECRET_KEY_BASE=$SECRET_KEY_BASE -f Dockerfile .
-        - docker build -t $IMAGE_NAME:master --build-arg SECRET_KEY_BASE=$SECRET_KEY_BASE -f Dockerfile .
-        # - docker push $IMAGE_NAME:$TRAVIS_BRANCH
-        - docker push $IMAGE_NAME:master
+        - docker build -t $IMAGE_NAME:$TRAVIS_BRANCH --build-arg SECRET_KEY_BASE=$SECRET_KEY_BASE -f Dockerfile .
+        - docker push $IMAGE_NAME:$TRAVIS_BRANCH
     - state: deploy
-      # if: branch = master
+      if: branch = master
       script:
         - curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
         - helm upgrade --install funny-movie-production --namespace=production --kubeconfig=do_kubeconfig.yml ./helm-chart

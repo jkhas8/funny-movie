@@ -7,7 +7,7 @@ replicaCount: 3
 image:
   repository: jkhas/funny-movie
   tag: master
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 imagePullSecrets:
   - name: jkhas-regcred
