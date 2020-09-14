@@ -26,6 +26,7 @@ test:
 
 production:
   <<: *default
-  database: remitano_test
+  database: funny_movie
+  host: <%= ENV["PRODUCTION_DB_HOST"] %>
   username: <%= ENV["PRODUCTION_DB_USERNAME"] %>
   password: <%= ENV["PRODUCTION_DB_PASSWORD"] %>

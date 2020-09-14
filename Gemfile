@@ -29,7 +29,7 @@ gem "bootsnap", ">= 1.4.2", require: false
 gem "yt"
 gem "bootstrap", "~> 4.5.2"
 gem "font-awesome-rails"
-
+gem "dotenv-rails"
 
 group :development, :test do
   # Call "byebug" anywhere in the code to stop execution and get a debugger console

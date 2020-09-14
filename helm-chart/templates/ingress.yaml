@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ include "funny-movie.fullname" . }}
+  labels:
+{{ include "funny-movie.labels" . | indent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- with .Values.ingress.tls }}
+  tls:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  rules:
+  - host: {{ .Values.ingress.hosts.host }}
+    http:
+      paths:
+        - path: /
+          backend:
+            serviceName: {{ include "funny-movie.fullname" .}}
+            servicePort: http

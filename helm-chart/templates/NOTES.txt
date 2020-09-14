@@ -1,0 +1,2 @@
+The deployment is complete, please try access to:
+http{{ if $.Values.ingress.tls }}s{{ end }}://{{ $.Values.ingress.hosts.host }}
